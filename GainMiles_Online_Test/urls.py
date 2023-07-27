@@ -74,8 +74,8 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('swagger/sample_prj/', schema_view.with_ui('swagger', cache_timeout=0),
+    path('swagger/online_test/', schema_view.with_ui('swagger', cache_timeout=0),
          name='gain_miles_online_test_swagger_schema'),
-    path('api/sample_prj/', include(register_router.urls)),
+    path('api/online_test/', include(register_router.urls)),
     *static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
 ]
