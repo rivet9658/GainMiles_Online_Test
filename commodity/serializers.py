@@ -56,7 +56,7 @@ class EditCommoditySerializer(serializers.ModelSerializer):
         self.have_category_handle(commodity, validated_data['category_list'], now_requester)
         self.have_color_handle(commodity, validated_data['color_list'], now_requester)
         self.have_size_handle(commodity, validated_data['size_list'], now_requester)
-        return validated_data
+        return commodity
 
     def update(self, instance, validated_data):
         now_requester = self.context['request'].user
@@ -76,45 +76,48 @@ class EditCommoditySerializer(serializers.ModelSerializer):
 
     def have_category_handle(self, commodity, category_list, now_requester):
         for category in category_list:
+            category_dict = dict(category)
             now_category = CategoryModel.objects.get_or_create(
-                code=category['code'],
-                name=category['name'],
+                code=category_dict['code'],
+                name=category_dict['name'],
                 create_user=now_requester,
                 updated_user=now_requester
             )
             CommodityHaveCategoryModel.objects.create(
                 belong_commodity=commodity,
-                belong_category=now_category,
+                belong_category=now_category[0],
                 create_user=now_requester,
                 updated_user=now_requester
             )
 
     def have_color_handle(self, commodity, color_list, now_requester):
         for color in color_list:
+            color_dict = dict(color)
             now_color = ColorModel.objects.get_or_create(
-                code=color['code'],
-                name=color['name'],
+                code=color_dict['code'],
+                name=color_dict['name'],
                 create_user=now_requester,
                 updated_user=now_requester
             )
             CommodityHaveColorModel.objects.create(
                 belong_commodity=commodity,
-                belong_color=now_color,
+                belong_color=now_color[0],
                 create_user=now_requester,
                 updated_user=now_requester
             )
 
     def have_size_handle(self, commodity, size_list, now_requester):
         for size in size_list:
+            size_dict = dict(size)
             now_size = SizeModel.objects.get_or_create(
-                code=size['code'],
-                name=size['name'],
+                code=size_dict['code'],
+                name=size_dict['name'],
                 create_user=now_requester,
                 updated_user=now_requester
             )
             CommodityHaveSizeModel.objects.create(
                 belong_commodity=commodity,
-                belong_size=now_size,
+                belong_size=now_size[0],
                 create_user=now_requester,
                 updated_user=now_requester
             )
