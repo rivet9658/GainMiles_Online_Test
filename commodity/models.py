@@ -1,6 +1,5 @@
 # package
 from django.db import models
-from django.utils import timezone
 # models
 from base_app.models import BaseModel
 from category.models import CategoryModel
