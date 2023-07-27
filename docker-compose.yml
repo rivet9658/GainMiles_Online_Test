@@ -1,0 +1,45 @@
+version: "1"
+
+services:
+  # Django 服務
+  web:
+    build:
+        context: .
+        dockerfile: Dockerfile
+    image: gain_miles_online_test
+    container_name: gain_miles_online_test
+    restart: always
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/code
+    environment:
+      - DEBUG=True
+    command: python manage.py runserver 0.0.0.0:8000
+    networks:
+      - web_network
+    dns: 8.8.8.8
+
+  # MariaDB 資料庫
+  db:
+    image: mariadb:10.11.4
+    container_name: gain_miles_mariadb
+    restart: always
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mariadb:/var/lib/mysql
+      - ./mariadb/log:/var/log
+    environment:
+      - MYSQL_ROOT_PASSWORD=1qaz@WS3edc
+      - MYSQL_DATABASE=gain_miles_online_test_db
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=1qaz@WS3edc
+      - MYSQL_CHARSET=utf8mb4
+      - MYSQL_COLLATION=utf8mb4_unicode_ci
+    networks:
+      - web_network
+
+networks:
+  web_network:
+    driver: bridge
