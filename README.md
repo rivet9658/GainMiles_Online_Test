@@ -55,7 +55,7 @@ DB_HOST=db  # 資料庫 Host
 DB_PORT=3306  # 資料庫 Port
 WITHOUT_HTTPS_DOMAINS=*  # DOMAIN 設定
 DOMAINS=http://0.0.0.0:8000  # DOMAIN 設定
-ANONYMOUS_PASSWORD:3edc@WSX1qaz  # django 預設匿名使用者密碼
+UNKNOWN_PASSWORD:3edc@WSX1qaz  # django 預設未知使用者密碼
 SUPERADMIN_PASSWORD:1qaz@WSX3edc  # django 預設超級使用者密碼
 ```
 
